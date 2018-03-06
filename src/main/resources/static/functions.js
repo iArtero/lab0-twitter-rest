@@ -6,6 +6,12 @@ function registerSearch() {
         $.get(target, { q: query } )
             .done( function(data) {
                 $("#resultsBlock").empty().append(data);
+                var template = $('#template').html();
+                Mustache.parse(template);   // optional, speeds up future uses
+                var rendered = Mustache.render(template,{data: data});
+                $('#resultsBlock').html(rendered);
+
+
             }).fail(function() {
             $("#resultsBlock").empty();
         });
